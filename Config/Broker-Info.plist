@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>CFBundleIdentifier</key><string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+  <key>CFBundleExecutable</key><string>$(EXECUTABLE_NAME)</string>
+  <key>CFBundleName</key><string>benSyncBroker</string>
+  <key>CFBundlePackageType</key><string>XPC!</string>
+  <key>CFBundleVersion</key><string>$(CURRENT_PROJECT_VERSION)</string>
+  <key>SharedAppGroup</key><string>$(MB_APP_GROUP)</string>
+  <key>BrokerIdentifier</key><string>$(MB_BUNDLE_PREFIX).Broker</string>
+  <key>SigningTeam</key><string>$(DEVELOPMENT_TEAM)</string>
+  <key>AllowedClientIdentifiers</key><array><string>$(MB_BUNDLE_PREFIX)</string><string>$(MB_BUNDLE_PREFIX).Provider</string></array>
+  <key>XPCService</key><dict>
+    <key>ServiceType</key><string>Application</string>
+    <key>RunLoopType</key><string>dispatch_main</string>
+  </dict>
+</dict></plist>

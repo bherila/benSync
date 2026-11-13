@@ -1,0 +1,94 @@
+name: benSync
+options:
+  minimumXcodeGenVersion: 2.42.0
+  deploymentTarget:
+    macOS: "26.0"
+  createIntermediateGroups: true
+packages:
+  BenSyncCore:
+    path: Core
+configFiles:
+  Debug: Config/Project.xcconfig
+  Release: Config/Project.xcconfig
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MACOSX_DEPLOYMENT_TARGET: "26.0"
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_HARDENED_RUNTIME: YES
+    CURRENT_PROJECT_VERSION: 1
+    MARKETING_VERSION: 0.1.0
+    GENERATE_INFOPLIST_FILE: NO
+    COMBINE_HIDPI_IMAGES: YES
+    CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER: YES
+targets:
+  benSync:
+    type: application
+    platform: macOS
+    sources: [App, Shared]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(MB_BUNDLE_PREFIX)
+        INFOPLIST_FILE: Config/App-Info.plist
+        CODE_SIGN_ENTITLEMENTS: Config/App.entitlements
+        ENABLE_APP_SANDBOX: NO
+        LD_RUNPATH_SEARCH_PATHS: $(inherited) @executable_path/../Frameworks
+    dependencies:
+      - package: BenSyncCore
+      - target: benSyncProvider
+        embed: true
+      - target: benSyncBroker
+        embed: true
+  benSyncProvider:
+    type: app-extension
+    platform: macOS
+    sources: [Extension, Shared]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(MB_BUNDLE_PREFIX).Provider
+        INFOPLIST_FILE: Config/Provider-Info.plist
+        CODE_SIGN_ENTITLEMENTS: Config/Provider.entitlements
+        ENABLE_APP_SANDBOX: YES
+        APPLICATION_EXTENSION_API_ONLY: YES
+        SKIP_INSTALL: YES
+    dependencies:
+      - package: BenSyncCore
+      - target: benSyncBroker
+        embed: true
+  benSyncBroker:
+    type: xpc-service
+    platform: macOS
+    sources:
+      - Broker
+      - Shared/Environment.swift
+      - Shared/BrokerProtocol.swift
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(MB_BUNDLE_PREFIX).Broker
+        INFOPLIST_FILE: Config/Broker-Info.plist
+        CODE_SIGN_ENTITLEMENTS: Config/Broker.entitlements
+        ENABLE_APP_SANDBOX: NO
+        SKIP_INSTALL: YES
+    dependencies:
+      - package: BenSyncCore
+      - target: benSyncAskPass
+        embed: true
+        copy:
+          destination: executables
+  benSyncAskPass:
+    type: tool
+    platform: macOS
+    sources: [AskPass]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(MB_BUNDLE_PREFIX).AskPass
+        GENERATE_INFOPLIST_FILE: YES
+        SKIP_INSTALL: YES
+        ENABLE_APP_SANDBOX: NO
+schemes:
+  benSync:
+    build:
+      targets:
+        benSync: all
+    run:
+      config: Debug

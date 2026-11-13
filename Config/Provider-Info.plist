@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>CFBundleIdentifier</key><string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+  <key>CFBundleExecutable</key><string>$(EXECUTABLE_NAME)</string>
+  <key>CFBundleName</key><string>benSync</string>
+  <key>CFBundlePackageType</key><string>XPC!</string>
+  <key>CFBundleShortVersionString</key><string>$(MARKETING_VERSION)</string>
+  <key>CFBundleVersion</key><string>$(CURRENT_PROJECT_VERSION)</string>
+  <key>CFBundleSymbolName</key><string>externaldrive.badge.icloud</string>
+  <key>SharedAppGroup</key><string>$(MB_APP_GROUP)</string>
+  <key>BrokerIdentifier</key><string>$(MB_BUNDLE_PREFIX).Broker</string>
+  <key>NSExtension</key><dict>
+    <key>NSExtensionPointIdentifier</key><string>com.apple.fileprovider-nonui</string>
+    <key>NSExtensionPrincipalClass</key><string>$(PRODUCT_MODULE_NAME).FileProviderExtension</string>
+    <key>NSExtensionFileProviderDocumentGroup</key><string>$(MB_APP_GROUP)</string>
+    <key>NSExtensionFileProviderSupportsEnumeration</key><true/>
+    <key>NSExtensionFileProviderDownloadPipelineDepth</key><integer>4</integer>
+    <key>NSExtensionFileProviderUploadPipelineDepth</key><integer>2</integer>
+    <key>NSExtensionFileProviderSupportsFailingUploadOnConflict</key><true/>
+    <key>NSExtensionFileProviderActions</key><array>
+      <dict>
+        <key>NSExtensionFileProviderActionIdentifier</key><string>keep-offline</string>
+        <key>NSExtensionFileProviderActionName</key><string>Make Available Offline</string>
+        <key>NSExtensionFileProviderActionActivationRule</key><string>TRUEPREDICATE</string>
+      </dict>
+      <dict>
+        <key>NSExtensionFileProviderActionIdentifier</key><string>use-on-demand</string>
+        <key>NSExtensionFileProviderActionName</key><string>Use On Demand</string>
+        <key>NSExtensionFileProviderActionActivationRule</key><string>TRUEPREDICATE</string>
+      </dict>
+      <dict>
+        <key>NSExtensionFileProviderActionIdentifier</key><string>free-space</string>
+        <key>NSExtensionFileProviderActionName</key><string>Free Up Space</string>
+        <key>NSExtensionFileProviderActionActivationRule</key><string>TRUEPREDICATE</string>
+      </dict>
+    </array>
+  </dict>
+</dict></plist>

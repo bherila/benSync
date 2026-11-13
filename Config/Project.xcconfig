@@ -1,0 +1,3 @@
+MB_BUNDLE_PREFIX = com.example.benSync
+MB_APP_GROUP = group.$(MB_BUNDLE_PREFIX)
+#include? "Local.xcconfig"
